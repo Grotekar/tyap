@@ -1,0 +1,11 @@
+Вт	Err	Err	Вт(If)	Err	Err	Вт(i,j,1 D)	Err	Вт	Вт	Вт	Вт	Вт	Вт
+Вт	Выт	Err	Err	Err	Err	Err	Err	Вт	Вт	Вт	Вт	Вт	Вт
+Вт	Err	Err	Err	Вых(M УПЛ),Зам(M If)	Err	Err	Err	Вт	Вт	Вт	Вт	Вт	Вт
+Вт	Err	Err	Вт(If)	Err	Вых(M+1 БП M:),Зам(M+1 If)	Err	Err	Вт	Вт	Вт	Вт	Вт	Вт
+Вт	Err	Err	Вт(If)	Err	Вых(M+1:),Выт,Држ	Err	Err	Вт	Вт	Вт	Вт	Вт	Вт
+Err	Err	Вых(k тип),Выт,Зам(i,j,1 D) Err	Err	Err	Err	Err	Err	Err	Err	Err	Err	Err	
+Вт	Вых,Выт,Држ	Вых,Выт,Држ	Err	Err	Err	Err	Err	Вт	Вых,Држ	Вт	Вт	Вт	Вт
+Вт	Вых,Выт,Држ	Вых,Выт,Држ	Err	Вых,Вых(M УПЛ),Зам(M If)	Вых(M+1 БП M:),Зам(M+1 If)	Err	Err	Вых,Држ	Вых,Држ	Вых,Држ	Вт	Вт	Вт
+Вт	Вых,Выт,Држ	Вых,Выт,Држ	Err	Err	Err	Err	Err	Вых,Држ	Вых,Држ	Вых,Држ	Вых,Држ	Вт	Вт
+Вт	Вых,Выт,Држ	Вых,Выт,Држ	Err	Err	Err	Err	Err	Вых,Држ	Вых,Држ	Вых,Држ	Вых,Држ	Вых,Држ	Вт
+Вт	Вых,Выт,Држ	Вых,Выт,Држ	Err	Err	Err	Err	Err	Вых,Држ	Вых,Држ	Вых,Држ	Вых,Држ	Вых,Држ	Вых,Држ

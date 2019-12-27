@@ -1,0 +1,19 @@
+If a>b Then a=b Else b=a
+Написать полноценную программу с End IF, vfccbdfvb, aeyrwbzvb b n/g/ 
+(a+d)/c+b*(e+d)
+
+a + b < - 5 & 2 - c = 1 + q
+"Привет"
+Dim a As Integer = "Привет" 67
+Dim b As Integer = 2
+ 
+REM Посчитаем сумму
+Dim c As Integer = a + b
+End 
+
+Sub Main
+
+Dim a As Integer = 67
+Dim b As Integer = 2
+
+End Sub

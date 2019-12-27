@@ -1,0 +1,17 @@
+﻿Rem
+Stop
+End
+Dim
+GoTo
+Return
+Gosub
+If
+Then
+Else
+End If
+As
+Integer
+String
+Const
+Sub
+End Sub
