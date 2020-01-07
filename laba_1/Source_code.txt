@@ -1,19 +1,29 @@
-If a>b Then a=b Else b=a
- 
-(a+d)/c+b*(e+d)
+Sub Main()
 
-a + b < - 5 & 2 - c = 1 + q
-"Привет"
-Dim a As Integer = "Привет" 67
-Dim b As Integer = 2
- 
-REM Посчитаем сумму
-Dim c As Integer = a + b
-End 
+        Dim s As String = "Привет"
+        Dim a As Integer = 2
+        Dim b As Integer = 5
 
-Sub Main
+        REM Посчитаем сумму
+        Dim c As Integer = a + b
 
-Dim a As Integer = 67
-Dim b As Integer = 2
+        REM Найти наибольшее
+        Dim max As Integer
+        If a > b Then
+            max = a
+        Else
+            max = b
+        End If
 
-End Sub
+        REM Массив
+        Dim mas As Integer() = {0, 1, 2, 3, 4, 5}
+
+        c = a + mas(2)
+
+        c = Fun(a, b)
+
+    End Sub
+
+    Function Fun(a As Integer, b As Integer) As Integer
+        Return a + b
+    End Function

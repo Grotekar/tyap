@@ -260,6 +260,8 @@ namespace laba_1
                 case ' ': return 4;
                 case '<': return 5;
                 case '>': return 6;
+                case '{':
+                case '}':
                 case ',': return 7;
                 case '.': return 8;
                 case '*':
@@ -281,7 +283,7 @@ namespace laba_1
                         return 13;
                     break;
             }
-            MessageBox.Show("Что-то пошло не так в анализе лексемы. Скорее всего символ не найден");
+            MessageBox.Show("Что-то пошло не так в анализе лексемы. Скорее всего символ \"" + l + "\" не найден");
             return -1; // ошибка 
         }
 
@@ -562,6 +564,8 @@ namespace laba_1
             {
                 case "W8":              // If
                 case "O12": return 0;   // (
+                case "R3":
+                case "R4":
                 case "R2":              // ,
                 case "O13":             // )
                 case "W9":              // Then
@@ -583,41 +587,10 @@ namespace laba_1
                 case "W4": return 8;         // Dim
                                               //case "W4":     // Dim
             }
-            //MessageBox.Show("Что-то пошло не так в анализе лексемы. Скорее всего символ не найден");
             return -1; // не операция 
         }
-
-        //public int GetPriority(string lex)
-        //{
-        //    switch (lex)
-        //    {
-        //        case "If":              // If
-        //        case "(": return 0;   // (
-        //        case ",":              // ,
-        //        case ")":             // )
-        //        case "Then":              // Then
-        //        case "Else": return 1;   // Else
-        //        case "GoTo": return 2;    // GoTo
-        //        case "&": return 3;   // &
-        //        case "=":              // =
-        //        case "<":              // <
-        //        case ">":              // >
-        //        case "<>":              // <>
-        //        case "<=":             // <=
-        //        case ">=": return 4;   // >=
-        //        case "+":              // +
-        //        case "-": return 5;    // -
-        //        case "*":              // *
-        //        case "/": return 6;    // /
-        //        case "^": return 7;    // ^
-        //        case "Sub":             // Sub
-        //        case "Dim": return 8;         // Dim
-        //                                      //case "W4":     // Dim
-        //    }
-        //    //MessageBox.Show("Что-то пошло не так в анализе лексемы. Скорее всего символ не найден");
-        //    return -1; // ошибка 
-        //}
-
+        
+        // Выполнить процедуру
         public void MakeProc(string cell, string word, Stack<string> stack, ref int MIf)
         {
             // если есть запятая в ячейке, значит нужно выполнить несколько процедур
