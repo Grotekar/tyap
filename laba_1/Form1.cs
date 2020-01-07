@@ -493,8 +493,10 @@ namespace laba_1
                         int count = chars.Count; // запомнить количество символов в очереди
                         for (int i = 0; i < count; i++) // составить слово
                             word += chars.Dequeue();
-                        if (GetPriority(word) == -1)
+                        if (GetPriority(word) == -1 && word != "R1" && word != "R2") 
                             textBox3.Text += word + " "; // если это не операция, то просто вывести
+                        else if (word == "R1" || word == "R2")
+                            word = "";
                         else
                         {
                             if (stack.Count == 0)  // если стек пуст, операция заносится в стек

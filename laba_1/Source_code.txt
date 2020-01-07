@@ -1,5 +1,5 @@
 If a>b Then a=b Else b=a
-Написать полноценную программу с End IF, vfccbdfvb, aeyrwbzvb b n/g/ 
+ 
 (a+d)/c+b*(e+d)
 
 a + b < - 5 & 2 - c = 1 + q
