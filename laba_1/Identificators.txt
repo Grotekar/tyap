@@ -1,15 +1,8 @@
-Main
-s
 a
 b
-c
 max
+s
+c
 mas
-0
-1
-2
-3
-4
-5
 Fun
 Function

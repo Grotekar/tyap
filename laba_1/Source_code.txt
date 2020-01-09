@@ -1,22 +1,22 @@
-Sub Main()
-
-        Dim s As String = "Привет"
-        Dim a As Integer = 2
-        Dim b As Integer = 5
+        If a > b Then max = a Else  max = b
+        Dim s As String
+        s = "Привет"
+        Dim a As Integer
+        a = 2
+        Dim b As Integer
+        b = 5
 
         REM Посчитаем сумму
-        Dim c As Integer = a + b
+        Dim c As Integer
+        c = a + b
 
         REM Найти наибольшее
         Dim max As Integer
-        If a > b Then
-            max = a
-        Else
-            max = b
-        End If
+        If a > b Then max = a Else  max = b
 
         REM Массив
-        Dim mas As Integer() = {0, 1, 2, 3, 4, 5}
+        Dim mas(3) As Integer
+        mas(2) = 2
 
         c = a + mas(2)
 
