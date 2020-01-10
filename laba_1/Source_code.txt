@@ -1,6 +1,8 @@
         If a > b Then max = a Else  max = b
         Dim s As String
+
         s = "Привет"
+
         Dim a As Integer
         a = 2
         Dim b As Integer

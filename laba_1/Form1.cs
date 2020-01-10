@@ -18,7 +18,7 @@ namespace laba_1
             listBox2.Items.AddRange(File.ReadAllLines("../../Separators.txt"));
             listBox3.Items.AddRange(File.ReadAllLines("../../Operators.txt"));
         }
-
+        public bool new_line = false;
         // Анализ
         private void button1_Click(object sender, EventArgs e)
         {
@@ -95,6 +95,7 @@ namespace laba_1
                                 string newState = state.Substring(0, i);
                                 procedure = state.Substring(i + 2);
                                 state = newState;
+                                
                                 break;
                             }
                         }
@@ -102,13 +103,19 @@ namespace laba_1
                         
                         string word = "";
                         int count = chars.Count;
-
+                       
                         for (int i = 0; i < count; i++)
                         {
                             word += chars.Dequeue();
                         }
+
                         // выполнение процедуры с передачей слова и таблицы слов
                         Procedures(procedure, word, words);
+                        if (new_line)
+                        {
+                            textBox2.Text += Environment.NewLine;
+                            new_line = false;
+                        }
                     }
                     chars.Enqueue(lines[row][column]); // добавить символ в очередь
 
@@ -134,6 +141,7 @@ namespace laba_1
                 // если строка закончилась
                 else if (row < lines.Count - 1)
                 {
+                    new_line = true;
                     // получить столбец (роль)
                     state = ArrayLinesState0[rowAnaliz, AnalizLex('$')].ToString();
                     // если найдена запятая - выделить процедуру и состояние
@@ -174,7 +182,8 @@ namespace laba_1
 
                     row++;
                     column = 0;
-                    textBox2.Text += Environment.NewLine;
+                    
+                    //textBox2.Text += Environment.NewLine;
                 }
 
                 // если конец файла
@@ -971,6 +980,11 @@ namespace laba_1
                                                   //case "W4":     // Dim
             }
             return -1; // это константа  
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 
