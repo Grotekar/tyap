@@ -1,7 +1,9 @@
 Sub Main()
 
         Dim s As String
+
         s = "Привет"
+
         Dim a As Integer
         a = 2
         Dim b As Integer
