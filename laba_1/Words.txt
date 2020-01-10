@@ -15,3 +15,4 @@ String
 Const
 Sub
 End Sub
+Function

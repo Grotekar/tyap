@@ -2,7 +2,6 @@
 {
     class Element
     {
-
         public string NC { get; set; }           //0
         public string Identificator { get; set; }//1
         public string LeftBracket { get; set; } // 2
@@ -19,5 +18,9 @@
         public string Op5 { get; set; }         // 13
         public string Op6 { get; set; }         // 14
         public string Op7 { get; set; }         // 15
+        public string Function { get; set; }    // 16
+        public string Ret { get; set; }         // 17
+        public string End { get; set; }         // 18
+        public string Sub { get; set; }         // 19
     }
 }

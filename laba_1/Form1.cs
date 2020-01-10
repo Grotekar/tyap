@@ -451,6 +451,7 @@ namespace laba_1
             Stack<string> stack = new Stack<string>();
 
             int MIf = 1; // счетчик If
+            int IFun = 1; // счетчик аргументов функции
             textBox3.Text = ""; // очистить результат
             // считать результат лексического анализа
             List<string> lines = File.ReadAllLines("../../Analiz.txt").ToList<string>();
@@ -464,8 +465,8 @@ namespace laba_1
             List<ElementState1> rlines1 = DataBaseState1.getDataEnterList("TableState1.csv");
 
             // массив переходов Состояние 0 (файл table.csv)
-            string[,] ArrayLinesState0 = new string[13, 16];
-            for (int i = 0; i < 13; i++)
+            string[,] ArrayLinesState0 = new string[15, 20];
+            for (int i = 0; i < 15; i++)
             {
                 ArrayLinesState0[i, 0] = rlines[i].NC;
                 ArrayLinesState0[i, 1] = rlines[i].Identificator;
@@ -483,11 +484,15 @@ namespace laba_1
                 ArrayLinesState0[i, 13] = rlines[i].Op5;
                 ArrayLinesState0[i, 14] = rlines[i].Op6;
                 ArrayLinesState0[i, 15] = rlines[i].Op7;
+                ArrayLinesState0[i, 16] = rlines[i].Function;
+                ArrayLinesState0[i, 17] = rlines[i].Ret;
+                ArrayLinesState0[i, 18] = rlines[i].End;
+                ArrayLinesState0[i, 19] = rlines[i].Sub;
             }
 
             // массив переходов Состояние 1 (файл TableState1.csv)
-            string[,] ArrayLinesState1 = new string[2, 5];
-            for (int i = 0; i < 2; i++)
+            string[,] ArrayLinesState1 = new string[3, 5];
+            for (int i = 0; i < 3; i++)
             {
                 ArrayLinesState0[i, 0] = rlines[i].NC;
                 ArrayLinesState1[i, 1] = rlines1[i].Identificator;
@@ -500,28 +505,33 @@ namespace laba_1
             int column = 0; // столбец в таблице переходов
             string LastLex = ""; // для последнего считанного символа
             int state = 0; // счетчик состояний
+            int DRZH = 0; // переключатель ДРЖ (не переходить к следующему слову и снова обработать это), нужен для того, чтобы слово не сбрасывалось
+            string word = ""; // слово
 
             foreach (var line in lines) // для каждой строки анализируемого файла
             {
-                for (int c = 0; c < line.Length; c++) // для каждого символа строки
+                for (int c = 0; c < line.Length; ) // для каждого символа строки
                 {
-                    if (line[c] != ' ') // если не пробел, то заносим в очередь (для составления слова)
+                    if (DRZH != 0)
+                        c--;
+                    if (line[c] != ' ' && DRZH == 0)  // если не пробел, то заносим в очередь (для составления слова) и переключатель ДРЖ = 0
                         chars.Enqueue(line[c]);
                     else // появился пробел, составляем слово
                     {
-                        string word = ""; // слово
-                        int count = chars.Count; // запомнить количество символов в очереди
+                        if (DRZH == 0)
+                        {
+                            word = ""; // слово
+                            int count = chars.Count; // запомнить количество символов в очереди
 
-                        for (int i = 0; i < count; i++) // составить слово
-                            word += chars.Dequeue();
+                            for (int i = 0; i < count; i++) // составить слово
+                                word += chars.Dequeue();
+                        }
 
-                        //if (GetPriority(word) == -1 && word != "R1" && word != "R2" && word != "R3" && word != "R4") // убрать эту проверку
-                        //    textBox3.Text += word + " "; 
-                        /*else*/
-                        if (word == "R1" || word == "R2" || word == "R3" || word == "R4" || word == "W12")  // если это разделитель, то пропустить его
+                        if (word == "R1" || word == "R3" || word == "R4" || word == "W12")  // если это разделитель или As, то пропустить его
                             word = "";
                         else
                         {
+                            DRZH = 0;
                             if (stack.Count == 0)  // если стек пуст, то операция заносится в стек
                             {
                                 if (state == 0) // если Состояние 0
@@ -531,16 +541,17 @@ namespace laba_1
                                     if (ArrayLinesState0[row, column] == "Err")
                                         MessageBox.Show("Появилась ошибка");
                                     else
-                                        MakeProc(ArrayLinesState0[row, column], word, LastLex, stack, ref MIf, ref state); // то, что нужно выполнить, слово, последнее слово, стек, счетчик If
+                                        MakeProc(ArrayLinesState0[row, column], word, LastLex, stack, ref MIf, ref state, ref DRZH, ref IFun); // то, что нужно выполнить, слово, последнее слово, стек, счетчик If
                                 }
                                 else
                                 {
-                                    row = 1;
+                                    row = 2;
+                                    //row = GetRowState1(stack.Peek());
                                     column = GetColumnState1(word); // получить столбец в таблице переходов Состояние 1 (файл table.csv)
                                     if (ArrayLinesState1[row, column] == "Err")
                                         MessageBox.Show("Появилась ошибка");
                                     else
-                                        MakeProc(ArrayLinesState1[row, column], word, LastLex, stack, ref MIf, ref state); // то, что нужно выполнить, слово, последнее слово, стек, счетчик If
+                                        MakeProc(ArrayLinesState1[row, column], word, LastLex, stack, ref MIf, ref state, ref DRZH, ref IFun); // то, что нужно выполнить, слово, последнее слово, стек, счетчик If
                                 }
                                 // выполнить то, что находится на пересечении
                                 
@@ -558,7 +569,7 @@ namespace laba_1
                                         MessageBox.Show("Появилась ошибка");
                                     else
                                     {
-                                        MakeProc(ArrayLinesState0[row, column], word, LastLex, stack, ref MIf, ref state);
+                                        MakeProc(ArrayLinesState0[row, column], word, LastLex, stack, ref MIf, ref state, ref DRZH, ref IFun);
                                     }
                                 }
                                 else if (state == 1 && GetColumnState1(word) != -1) // если Состояние 1  и слово - это операция
@@ -572,27 +583,95 @@ namespace laba_1
                                         MessageBox.Show("Появилась ошибка");
                                     else
                                     {
-                                        MakeProc(ArrayLinesState1[row, column], word, LastLex, stack, ref MIf, ref state);
+                                        MakeProc(ArrayLinesState1[row, column], word, LastLex, stack, ref MIf, ref state, ref DRZH, ref IFun);
                                     }
                                 }
                             }
                         }
                         LastLex = word; // запомнить последнее введенное слово
                     }
+                    c++;
                 }
 
-                string w = ""; // слово
+                // Если конец строки
+
+                if (DRZH != 0) 
+                {
+                    DRZH = 0;
+                    if (stack.Count == 0)  // если стек пуст, то операция заносится в стек
+                    {
+                        if (state == 0) // если Состояние 0
+                        {
+                            row = 0;
+                            column = GetColumnState0(word);  // получить столбец в таблице переходов Состояние 0 (файл table.csv)
+                            if (ArrayLinesState0[row, column] == "Err")
+                                MessageBox.Show("Появилась ошибка");
+                            else
+                                MakeProc(ArrayLinesState0[row, column], word, LastLex, stack, ref MIf, ref state, ref DRZH, ref IFun); // то, что нужно выполнить, слово, последнее слово, стек, счетчик If
+                        }
+                        else
+                        {
+                            //row = 1;
+                            row = GetRowState1(stack.Peek());
+                            column = GetColumnState1(word); // получить столбец в таблице переходов Состояние 1 (файл table.csv)
+                            if (ArrayLinesState1[row, column] == "Err")
+                                MessageBox.Show("Появилась ошибка");
+                            else
+                                MakeProc(ArrayLinesState1[row, column], word, LastLex, stack, ref MIf, ref state, ref DRZH, ref IFun); // то, что нужно выполнить, слово, последнее слово, стек, счетчик If
+                        }
+                        // выполнить то, что находится на пересечении
+
+                    }
+                    else if (stack.Count != 0) // если стек не пуст
+                    {
+                        if (state == 0 && GetColumnState0(word) != -1) // если Состояние 0  и слово - это операция
+                        {
+                            string Last = stack.Peek(); // последний элемент стека
+                            row = GetRowState0(Last); // получить строку в таблице
+                            column = GetColumnState0(word); // получить столбец в таблице переходов
+
+                            // выполнить то, что находится на пересечении
+                            if (ArrayLinesState0[row, column] == "Err")
+                                MessageBox.Show("Появилась ошибка");
+                            else
+                            {
+                                MakeProc(ArrayLinesState0[row, column], word, LastLex, stack, ref MIf, ref state, ref DRZH, ref IFun);
+                            }
+                        }
+                        else if (state == 1 && GetColumnState1(word) != -1) // если Состояние 1  и слово - это операция
+                        {
+                            string Last = stack.Peek(); // последний элемент стека
+                            row = GetRowState1(Last); // получить строку в таблице
+                            column = GetColumnState1(word); // получить столбец в таблице переходов
+
+                            // выполнить то, что находится на пересечении
+                            if (ArrayLinesState1[row, column] == "Err")
+                                MessageBox.Show("Появилась ошибка");
+                            else
+                            {
+                                MakeProc(ArrayLinesState1[row, column], word, LastLex, stack, ref MIf, ref state, ref DRZH, ref IFun);
+                            }
+                        }
+                    }
+                }
+
+                word = "";
+                // string w = ""; // слово
                 int calc = chars.Count; // запомнить количество символов в очереди
                 for (int i = 0; i < calc; i++) // составить слово
-                    w += chars.Dequeue();
-                textBox3.Text += w + " "/*Environment.NewLine*/;
+                    word += chars.Dequeue();
+                textBox3.Text += word + " "/*Environment.NewLine*/;
                 while (stack.Count != 0) 
                 {
-                    if (stack.Peek()=="M1 W8" || stack.Peek() == "M2 W8" || stack.Peek() == "M3 W8" || stack.Peek() == "M4 W8")
+                    if (stack.Peek() == "M1 W8" || stack.Peek() == "M2 W8" || stack.Peek() == "M3 W8" || stack.Peek() == "M4 W8")
                     {
                         string Cond = stack.Pop();
                         Cond = Cond.Substring(0, Cond.Length - 3);
-                        textBox3.Text += Cond;
+                        textBox3.Text += Cond + ":";
+                    }
+                    else if (stack.Peek() == "i,j,1 D") 
+                    {
+                        stack.Pop();
                     }
                     else
                         textBox3.Text += stack.Pop() + " ";
@@ -641,7 +720,7 @@ namespace laba_1
         }
         
         // Выполнить процедуру
-        public void MakeProc(string cell, string word, string LastLex, Stack<string> stack, ref int MIf, ref int state)  // ячейка, слово, стек, счетчик If
+        public void MakeProc(string cell, string word, string LastLex, Stack<string> stack, ref int MIf, ref int state, ref int DRZH, ref int IFun)  // ячейка, слово, стек, счетчик If, переключатель состояний, переключатель ДРЖ
         {
             // если есть запятая в ячейке, значит нужно выполнить несколько процедур
 
@@ -694,6 +773,21 @@ namespace laba_1
                     case "Вт(i j 1 D)":
                         {
                             stack.Push("i,j,1 D");
+                            break;
+                        }
+                    case "Вт(i j Function)":
+                        {
+                            stack.Push("i,j Function");
+                            break;
+                        }
+                    case "Вт(2А)":
+                        {
+                            stack.Push("2А");
+                            break;
+                        }
+                    case "Вт(1Ф)":
+                        {
+                            stack.Push("1Ф");
                             break;
                         }
                     case "Выт":
@@ -752,12 +846,12 @@ namespace laba_1
                     case "Зам(M+1 If)":
                         // заменить элемент в вершмне стека на M+1 If
                         {
-                            stack.Pop();
+                            //stack.Pop();
                             stack.Pop();
                             stack.Push("M" + MIf + " W8");
                             break;
                         }
-                    case "Зам(i+1 A)":
+                    case "Зам(i+1 А)":
                         // заменить элемент в вершине стека на i+1 A
                         {
                             // получить число
@@ -775,14 +869,30 @@ namespace laba_1
                             }
                             int Difference = Space - LeftAngle; // длина числа
                             int digit = Convert.ToInt32(s.Substring(LeftAngle, Difference));
-                            stack.Push(digit + 1 + " A");
+                            stack.Push(digit + 1 + " А");
+                            break;
+                        }
+                    case "Зам(i+1 Ф)":
+                        {
+                            stack.Pop();
+                            IFun++;
+                            stack.Push(IFun + "Ф");
+                            break;
+                        }
+                    case "Зам(2Ф)":
+                        {
+                            IFun++;
+                            stack.Pop();
+                            stack.Push("2Ф");
                             break;
                         }
                     case "Држ":
-                        // не переходить к новому символу входной строки 
+                        // не переходить к новому слову входной строки и обработать то же слово
                         {
-                            if (word != "O13") 
-                                stack.Push(word);
+                            DRZH = 1;
+                            //MakeProc()
+                            //if (word != "O13") 
+                            //    stack.Push(word);
                             break;
                         }
                     default:
@@ -815,11 +925,16 @@ namespace laba_1
                 case "O2": return 8;    // -
                 case "O3":              // *
                 case "O4": return 9;    // /
-                case "O5": return 10;    // ^
+                case "O5": return 10;   // ^
                 case "W16":             // Sub
-                case "W4": return 9;         // Dim
+                case "W4": return 9;    // Dim
+                case "2А": return 11;   // 2А (массив)
                 case "i,j,1 D": return 12;// i,j,1 D
-                                          //case "W4":     // Dim
+                case "2Ф":
+                case "3Ф":
+                case "4Ф":
+                case "i,j Function": return 13;   // Функция с количеством параметров
+                case "W6": return 14;   // Return
             }
             return -1; // ошибка 
         }
@@ -829,7 +944,8 @@ namespace laba_1
         {
             switch (lex)
             {
-                case "Ф1": return 0;    // Ф1
+                case "1Ф": return 0;    // Ф1
+                case "i,j Function": return 1;
                 //case "O12":             // (
                 //case "W8":              // If
                 //case "M1 W8":           // M1 If
@@ -852,7 +968,7 @@ namespace laba_1
                 //case "W4": return 1;    // Dim
                                              //case "W4":     // Dim
             }
-            return 1; // ошибка 
+            return 2; // другие элементы 
         }
 
         // получить столбец в таблице переходов  Состояние 0 (файл table.csv)
@@ -889,10 +1005,9 @@ namespace laba_1
                 case "O12": return 2;    // (
                 case "O13": return 3;    // )
                 case "R2":  return 4;    // ,
-                case "W8":  return 5;    // ,
+                case "W8":  return 5;    // If
                 case "W9":  return 6;    // Then
                 case "W10": return 7;    // Else
-                case "W16":              // Sub
                 case "W4":  return 8;    // Dim
                 case "W13":              // Integer
                 case "W14": return 9;    // String
@@ -909,7 +1024,10 @@ namespace laba_1
                 case "O3":               // *  ОП6
                 case "O4":  return 14;   // / 
                 case "O5":  return 15;   // ^  ОП7
-                                              //case "W4":     // Dim
+                case "W18": return 16;   // Function
+                case "W6":  return 17;   // Return
+                case "W3":  return 18;   // End
+                case "W16": return 19;   // Sub
             }
             return -1; // это константа  
         }
@@ -947,30 +1065,30 @@ namespace laba_1
                 case "I8":  return 1;   // какой-нибудь идентификатор
                 case "O12": return 2;   // (
                 case "O13": return 3;   // )
-                case "R2":              // Другие элементы
-                case "W8":              // ,
-                case "W9":              // Then
-                case "W10":             // Else
-                case "W16":             // Sub
-                case "W4":              // Dim
-                case "W13":             // Integer
-                case "W14":             // String
-                case "O8":              // =
-                case "O14":             // &  ОП3
-                //case "GoTo": return 2;    // GoTo
-                case "O6":              // <  ОП4
-                case "O7":              // >
-                case "O9":              // <>
-                case "O11":             // <=
-                case "O10":             // >=
-                case "O1":              // +  ОП5
-                case "O2":              // -
-                case "O3":              // *  ОП6
-                case "O4":              // / 
-                case "O5": return 4;    // ^  ОП7
+                //case "R2":              // Другие элементы
+                //case "W8":              // ,
+                //case "W9":              // Then
+                //case "W10":             // Else
+                //case "W16":             // Sub
+                //case "W4":              // Dim
+                //case "W13":             // Integer
+                //case "W14":             // String
+                //case "O8":              // =
+                //case "O14":             // &  ОП3
+                ////case "GoTo": return 2;    // GoTo
+                //case "O6":              // <  ОП4
+                //case "O7":              // >
+                //case "O9":              // <>
+                //case "O11":             // <=
+                //case "O10":             // >=
+                //case "O1":              // +  ОП5
+                //case "O2":              // -
+                //case "O3":              // *  ОП6
+                //case "O4":              // / 
+                //case "O5": return 4;    // ^  ОП7
                                                   //case "W4":     // Dim
             }
-            return -1; // это константа  
+            return 4; // это константа  
         }
     }
 
@@ -1063,6 +1181,10 @@ namespace laba_1
                         Op5 = csvDataEnter.GetField<string>(13),
                         Op6 = csvDataEnter.GetField<string>(14),
                         Op7 = csvDataEnter.GetField<string>(15),
+                        Function = csvDataEnter.GetField<string>(16),
+                        Ret = csvDataEnter.GetField<string>(17),
+                        End = csvDataEnter.GetField<string>(18),
+                        Sub = csvDataEnter.GetField<string>(19),
                     };
                     getEnterDataList.Add(oneRecord);
 
