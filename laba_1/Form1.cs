@@ -368,7 +368,7 @@ namespace laba_1
                         i++;
                         // если числа нет в таблице, то внести его
                         textBox2.Text += "N" + i + " ";
-                        listBox4.Items.Add(w);
+                        listBox4.Items.Add(i + ". " + w);
                         numbers.Add(w);
                         // записать в файл
                         File.WriteAllLines("../../Numbers.txt", numbers);
@@ -424,7 +424,7 @@ namespace laba_1
                         i++;
                         // если числа нет в таблице, то внести его
                         textBox2.Text += "C" + i + " ";
-                        listBox5.Items.Add(i + ". " + w);
+                        listBox6.Items.Add(i + ". " + w);
                         symbols.Add(w);
                         // записать в файл
                         File.WriteAllLines("../../Symbols.txt", symbols);
