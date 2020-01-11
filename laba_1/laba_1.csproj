@@ -96,11 +96,14 @@
     <Content Include="Identificators.txt" />
     <Content Include="Numbers.txt" />
     <Content Include="Operators.txt" />
+    <Content Include="OperatorsListBox.txt" />
     <Content Include="OPZ.txt" />
     <Content Include="Separators.txt" />
+    <Content Include="SeparatorsListBox.txt" />
     <Content Include="Source_code.txt" />
     <Content Include="Symbols.txt" />
     <None Include="TableState1.csv" />
+    <Content Include="WordsListBox.txt" />
     <Content Include="Words.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

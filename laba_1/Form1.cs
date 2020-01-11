@@ -14,9 +14,9 @@ namespace laba_1
         {
             InitializeComponent();
             textBox1.Text = File.ReadAllText("../../Source_code.txt");
-            listBox1.Items.AddRange(File.ReadAllLines("../../Words.txt"));
-            listBox2.Items.AddRange(File.ReadAllLines("../../Separators.txt"));
-            listBox3.Items.AddRange(File.ReadAllLines("../../Operators.txt"));
+            listBox1.Items.AddRange(File.ReadAllLines("../../WordsListBox.txt"));
+            listBox2.Items.AddRange(File.ReadAllLines("../../SeparatorsListBox.txt"));
+            listBox3.Items.AddRange(File.ReadAllLines("../../OperatorsListBox.txt"));
         }
         public bool new_line = false;
         // Анализ
@@ -182,8 +182,6 @@ namespace laba_1
 
                     row++;
                     column = 0;
-                    
-                    //textBox2.Text += Environment.NewLine;
                 }
 
                 // если конец файла
@@ -242,15 +240,7 @@ namespace laba_1
 
             //string Text = textBox2.Text;
             List<string> Text = new List<string>() { textBox2.Text };
-            //foreach (var line in Text)
-            //{
-            //    MessageBox.Show(line);
-            //}
-            //MessageBox.Show(Text.ToString());
-            //for (int i = 0; i < Text.Count; i++)
-            //{
-
-            //}
+            
             // перезаписать в файл
             File.WriteAllText("../../Analiz.txt", textBox2.Text);
             MessageBox.Show("Анализ лексем сохранен в отдельный файл");
@@ -318,7 +308,7 @@ namespace laba_1
                         i++;
                         // если числа нет в таблице, то внести его
                         textBox2.Text += "I" + i + " ";
-                        listBox5.Items.Add(w);
+                        listBox5.Items.Add(i + ". " + w);
                         identificators.Add(w);
                         // записать в файл
                         File.WriteAllLines("../../Identificators.txt", identificators);
@@ -355,7 +345,7 @@ namespace laba_1
                         i++;
                         // если числа нет в таблице, то внести его
                         textBox2.Text += "I" + i + " ";
-                        listBox5.Items.Add(w);
+                        listBox5.Items.Add(i + ". " + w);
                         identificators.Add(w);
                         // записать в файл
                         File.WriteAllLines("../../Identificators.txt", identificators);
@@ -434,7 +424,7 @@ namespace laba_1
                         i++;
                         // если числа нет в таблице, то внести его
                         textBox2.Text += "C" + i + " ";
-                        listBox6.Items.Add(w);
+                        listBox5.Items.Add(i + ". " + w);
                         symbols.Add(w);
                         // записать в файл
                         File.WriteAllLines("../../Symbols.txt", symbols);
@@ -474,8 +464,8 @@ namespace laba_1
             List<ElementState1> rlines1 = DataBaseState1.getDataEnterList("TableState1.csv");
 
             // массив переходов Состояние 0 (файл table.csv)
-            string[,] ArrayLinesState0 = new string[15, 20];
-            for (int i = 0; i < 15; i++)
+            string[,] ArrayLinesState0 = new string[16, 20];
+            for (int i = 0; i < ArrayLinesState0.GetLength(0); i++)
             {
                 ArrayLinesState0[i, 0] = rlines[i].NC;
                 ArrayLinesState0[i, 1] = rlines[i].Identificator;
@@ -500,8 +490,8 @@ namespace laba_1
             }
 
             // массив переходов Состояние 1 (файл TableState1.csv)
-            string[,] ArrayLinesState1 = new string[3, 5];
-            for (int i = 0; i < 3; i++)
+            string[,] ArrayLinesState1 = new string[4, 5];
+            for (int i = 0; i < ArrayLinesState1.GetLength(0); i++)
             {
                 ArrayLinesState0[i, 0] = rlines[i].NC;
                 ArrayLinesState1[i, 1] = rlines1[i].Identificator;
@@ -554,7 +544,7 @@ namespace laba_1
                                 }
                                 else
                                 {
-                                    row = 2;
+                                    row = 3;
                                     //row = GetRowState1(stack.Peek());
                                     column = GetColumnState1(word); // получить столбец в таблице переходов Состояние 1 (файл table.csv)
                                     if (ArrayLinesState1[row, column] == "Err")
@@ -669,7 +659,7 @@ namespace laba_1
                 int calc = chars.Count; // запомнить количество символов в очереди
                 for (int i = 0; i < calc; i++) // составить слово
                     word += chars.Dequeue();
-                textBox3.Text += word + " "/*Environment.NewLine*/;
+                textBox3.Text += word + ""/*Environment.NewLine*/;
                 while (stack.Count != 0) 
                 {
                     if (stack.Peek() == "M1 W8" || stack.Peek() == "M2 W8" || stack.Peek() == "M3 W8" || stack.Peek() == "M4 W8")
@@ -681,6 +671,11 @@ namespace laba_1
                     else if (stack.Peek() == "i,j,1 D") 
                     {
                         stack.Pop();
+                    }
+                    else if (stack.Peek()=="Sub 1,1")
+                    {
+                        stack.Pop();
+                        textBox3.Text += "1,1 НП ";
                     }
                     else
                         textBox3.Text += stack.Pop() + " ";
@@ -787,6 +782,11 @@ namespace laba_1
                     case "Вт(i j Function)":
                         {
                             stack.Push("i,j Function");
+                            break;
+                        }
+                    case "Вт(Sub 1 1)":
+                        {
+                            stack.Push("Sub 1,1");
                             break;
                         }
                     case "Вт(2А)":
@@ -899,9 +899,11 @@ namespace laba_1
                         // не переходить к новому слову входной строки и обработать то же слово
                         {
                             DRZH = 1;
-                            //MakeProc()
-                            //if (word != "O13") 
-                            //    stack.Push(word);
+                            break;
+                        }
+                    case "N":
+                        // ничего не делать
+                        {
                             break;
                         }
                     default:
@@ -944,6 +946,7 @@ namespace laba_1
                 case "4Ф":
                 case "i,j Function": return 13;   // Функция с количеством параметров
                 case "W6": return 14;   // Return
+                case "Sub 1,1": return 15; // Sub
             }
             return -1; // ошибка 
         }
@@ -953,31 +956,11 @@ namespace laba_1
         {
             switch (lex)
             {
-                case "1Ф": return 0;    // Ф1
-                case "i,j Function": return 1;
-                //case "O12":             // (
-                //case "W8":              // If
-                //case "M1 W8":           // M1 If
-                //case "M2 W8":           // M2 If
-                //case "M3 W8":           // M3 If
-                //case "M4 W8":           // M4 If ??
-                //case "O14":             // &
-                //case "O8":              // =
-                //case "O6":              // <
-                //case "O7":              // >
-                //case "O9":              // <>
-                //case "O11":             // <=
-                //case "O10":             // >=
-                //case "O1":              // +
-                //case "O2":              // -
-                //case "O3":              // *
-                //case "O4":              // /
-                //case "O5":               // ^
-                //case "W16":             // Sub
-                //case "W4": return 1;    // Dim
-                                             //case "W4":     // Dim
+                case "1Ф": return 0;    // 1Ф
+                case "i,j Function": return 1; // Function
+                case "Sub 1,1":  return 2;    // Sub
             }
-            return 2; // другие элементы 
+            return 3; // другие элементы 
         }
 
         // получить столбец в таблице переходов  Состояние 0 (файл table.csv)
@@ -1033,7 +1016,7 @@ namespace laba_1
                 case "O3":               // *  ОП6
                 case "O4":  return 14;   // / 
                 case "O5":  return 15;   // ^  ОП7
-                case "W18": return 16;   // Function
+                case "W7": return 16;    // Function
                 case "W6":  return 17;   // Return
                 case "W3":  return 18;   // End
                 case "W16": return 19;   // Sub
@@ -1098,11 +1081,6 @@ namespace laba_1
                                                   //case "W4":     // Dim
             }
             return 4; // это константа  
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
         }
     }
 

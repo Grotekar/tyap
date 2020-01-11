@@ -4,15 +4,14 @@ End
 Dim
 GoTo
 Return
-Gosub
+Function
 If
 Then
 Else
-End If
+End Function
 As
 Integer
 String
 Const
 Sub
 End Sub
-Function
