@@ -1,4 +1,5 @@
-        If a > b Then max = a Else  max = b
+Sub Main()
+
         Dim s As String
 End Sub
 End
@@ -15,7 +16,7 @@ End
 
         REM Найти наибольшее
         Dim max As Integer
-        If a > b Then max = a Else  max = b
+        If a > b Then max = a Else max = b
 
         REM Массив
         Dim mas(3) As Integer
@@ -26,7 +27,6 @@ End
         c = Fun(a, b)
 
     End Sub
-
     Function Fun(a As Integer, b As Integer) As Integer
         Return a + b
     End Function

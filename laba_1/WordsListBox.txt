@@ -1,0 +1,17 @@
+﻿1.  Rem
+2.  Stop
+3.  End
+4.  Dim
+5.  GoTo
+6.  Return
+7.  Function
+8.  If
+9.  Then
+10. Else
+11. End Function
+12. As
+13. Integer
+14. String
+15. Const
+16. Sub
+17. End Sub
