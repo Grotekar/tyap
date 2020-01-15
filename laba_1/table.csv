@@ -12,5 +12,5 @@ Err	Err	Err	Вых	Вых	Err	Err	Err	Err	Err	Err	Err	Err	Err	Err		Err	Err	Err	E
 Вых(X)	Сост(1),Вых(X)	Вт	Вых	Зам(i+1 A)	Err	Err	Err	Err	Err	Err	Вт	Вт	Вт	Вт	Вт	Err	Err	Err	Err
 Err	Сост(1),Вых(X)	Err	Err	Err	Err	Err	Err	Err	Вт	Err	Err	Err	Err	Err	Err	Err	Err	Err	Err
 Вых(X)	Сост(1),Вых(X)	Вт	Вых,Выт	Зам(i+1 Ф)	Err	Err	Err	Err	Вт	Вт	Вт	Вт	Вт	Вт	Вт	Err	Err	Err	Err
-Вых(X)	Сост(1),Вых(X)	Вт	Err	Err	Err	Err	Err	Err	Err	Err	Err	Err	Err	Err	Err	Err	Err	Err	Err
+Вых(X)	Сост(1),Вых(X)	Вт	Err	Err	Err	Err	Err	Err	Err	Вт	Вт	Вт	Вт	Вт	Вт	Err	Err	Err	Err
 Err	Сост(1),Вых(X)	N	N	Err	Err	Err	Err	Err	Вт	Err	Err	Err	Err	Err	Err	Err	Err	Err	Err

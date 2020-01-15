@@ -1,8 +1,6 @@
 Sub Main()
 
         Dim s As String
-End Sub
-End
         s = "Привет"
 
         Dim a As Integer
@@ -26,7 +24,7 @@ End
 
         c = Fun(a, b)
 
-    End Sub
-    Function Fun(a As Integer, b As Integer) As Integer
-        Return a + b
-    End Function
+End Sub
+Function Fun(a As Integer, b As Integer) As Integer
+    Return a + b
+End Function

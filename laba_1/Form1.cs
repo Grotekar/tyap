@@ -673,23 +673,47 @@ namespace laba_1
                 textBox3.Text += word + ""/*Environment.NewLine*/;
                 while (stack.Count != 0) 
                 {
-                    if (stack.Peek() == "M1 W8" || stack.Peek() == "M2 W8" || stack.Peek() == "M3 W8" || stack.Peek() == "M4 W8")
+                    switch (stack.Peek())
                     {
-                        string Cond = stack.Pop();
-                        Cond = Cond.Substring(0, Cond.Length - 3);
-                        textBox3.Text += Cond + ":";
+                        case "M1 W8":
+                        case "M2 W8":
+                        case "M3 W8":
+                        case "M4 W8":
+                            {
+                                string Cond = stack.Pop();
+                                Cond = Cond.Substring(0, Cond.Length - 3);
+                                textBox3.Text += Cond + ":";
+                                break;
+                            }
+                        case "i,j,1 D":
+                            {
+                                stack.Pop();
+                                break;
+                            }
+                        case "Sub 1,1":
+                            {
+                                stack.Pop();
+                                textBox3.Text += "1,1 НП ";
+                                break;
+                            }
+                        case "W17":
+                            {
+                                stack.Pop();
+                                textBox3.Text += "1,1 КП";
+                                break;
+                            }
+                        case "W11":
+                            {
+                                stack.Pop();
+                                textBox3.Text += "2,1 КП";
+                                break;
+                            }
+                        default:
+                            {
+                                textBox3.Text += stack.Pop() + " ";
+                                break;
+                            }
                     }
-                    else if (stack.Peek() == "i,j,1 D") 
-                    {
-                        stack.Pop();
-                    }
-                    else if (stack.Peek()=="Sub 1,1")
-                    {
-                        stack.Pop();
-                        textBox3.Text += "1,1 НП ";
-                    }
-                    else
-                        textBox3.Text += stack.Pop() + " ";
                 }
                 textBox3.Text += Environment.NewLine;
             }
@@ -800,9 +824,9 @@ namespace laba_1
                             stack.Push("Sub 1,1");
                             break;
                         }
-                    case "Вт(2А)":
+                    case "Вт(2A)":
                         {
-                            stack.Push("2А");
+                            stack.Push("2A");
                             break;
                         }
                     case "Вт(1Ф)":
@@ -871,25 +895,21 @@ namespace laba_1
                             stack.Push("M" + MIf + " W8");
                             break;
                         }
-                    case "Зам(i+1 А)":
+                    case "Зам(i+1 A)":
                         // заменить элемент в вершине стека на i+1 A
                         {
                             // получить число
-                            stack.Pop();
-                            int LeftAngle = 0; // индекс после левой скобки
-                            int Space = 0; // индекс пробела
+                            int A = 0; // индекс A
 
                             string s = stack.Pop();
                             for (int i = 0; i < s.Length; i++)
                             {
-                                if (s[i]=='(')
-                                    LeftAngle = i + 1;
-                                if (s[i] == ' ')
-                                    Space = i - 1;
+                                if (s[i] == 'A')
+                                    A = i;
                             }
-                            int Difference = Space - LeftAngle; // длина числа
-                            int digit = Convert.ToInt32(s.Substring(LeftAngle, Difference));
-                            stack.Push(digit + 1 + " А");
+                            int Difference = A; // длина числа
+                            int digit = Convert.ToInt32(s.Substring(0, A));
+                            stack.Push(digit + 1 + "A");
                             break;
                         }
                     case "Зам(i+1 Ф)":
@@ -950,7 +970,11 @@ namespace laba_1
                 case "O5": return 10;   // ^
                 case "W16":             // Sub
                 case "W4": return 9;    // Dim
-                case "2А": return 11;   // 2А (массив)
+                case "2A":              // 2A (массив)
+                case "3A":              // 3A (массив)
+                case "4A":              // 4A (массив)
+                case "5A":              // 5A (массив)
+                case "6A": return 11;   // 6A (массив)
                 case "i,j,1 D": return 12;// i,j,1 D
                 case "2Ф":
                 case "3Ф":
@@ -1029,7 +1053,8 @@ namespace laba_1
                 case "O5":  return 15;   // ^  ОП7
                 case "W7": return 16;    // Function
                 case "W6":  return 17;   // Return
-                case "W3":  return 18;   // End
+                case "W11":              // End Function
+                case "W17":  return 18;  // End Sub
                 case "W16": return 19;   // Sub
             }
             return -1; // это константа  

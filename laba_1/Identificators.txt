@@ -1,9 +1,8 @@
+Main
+s
 a
 b
-max
-s
 c
+max
 mas
 Fun
-Function
-End Function
