@@ -87,7 +87,6 @@ namespace laba_1
                     // если найдена запятая - выделить процедуру и состояние
                     if (state.Contains(',')) 
                     {
-                        //MessageBox.Show("Найдена запятая");
                         for (int i = 0; i < state.Length; i++)
                         {
                             if (state[i] == ',')
@@ -158,7 +157,6 @@ namespace laba_1
                     // если найдена запятая - выделить процедуру и состояние
                     if (state.Contains(','))
                     {
-                        //MessageBox.Show("Найдена запятая");
                         for (int i = 0; i < state.Length; i++)
                         {
                             if (state[i] == ',')
@@ -203,7 +201,6 @@ namespace laba_1
                     // если найдена запятая - выделить процедуру и состояние
                     if (state.Contains(','))
                     {
-                        //MessageBox.Show("Найдена запятая");
                         for (int i = 0; i < state.Length; i++)
                         {
                             if (state[i] == ',')
@@ -247,9 +244,6 @@ namespace laba_1
                 }
             }
 
-            // Проверить на наличие As Integer, End If, End Sub и т.п.
-
-            //string Text = textBox2.Text;
             List<string> Text = new List<string>() { textBox2.Text };
             
             // перезаписать в файл
@@ -708,6 +702,13 @@ namespace laba_1
                                 textBox3.Text += "2,1 КП";
                                 break;
                             }
+                        case "2Ф":
+                        case "3Ф":
+                        case "4Ф":
+                            {
+                                textBox3.Text += stack.Pop() + " 2,1 НП";
+                                break;
+                            }
                         default:
                             {
                                 textBox3.Text += stack.Pop() + " ";
@@ -753,7 +754,6 @@ namespace laba_1
                 case "W13":             // Integer
                 case "W14":             // String
                 case "W4": return 8;    // Dim
-                                              //case "W4":     // Dim
             }
             return -1; // если не операция 
         }
@@ -884,13 +884,11 @@ namespace laba_1
                         {
                             stack.Pop();
                             stack.Push("M" + MIf + " W8");
-                            //MIf++;
                             break;
                         }
                     case "Зам(M+1 If)":
                         // заменить элемент в вершмне стека на M+1 If
                         {
-                            //stack.Pop();
                             stack.Pop();
                             stack.Push("M" + MIf + " W8");
                             break;
@@ -1093,28 +1091,6 @@ namespace laba_1
                 case "I8":  return 1;   // какой-нибудь идентификатор
                 case "O12": return 2;   // (
                 case "O13": return 3;   // )
-                //case "R2":              // Другие элементы
-                //case "W8":              // ,
-                //case "W9":              // Then
-                //case "W10":             // Else
-                //case "W16":             // Sub
-                //case "W4":              // Dim
-                //case "W13":             // Integer
-                //case "W14":             // String
-                //case "O8":              // =
-                //case "O14":             // &  ОП3
-                ////case "GoTo": return 2;    // GoTo
-                //case "O6":              // <  ОП4
-                //case "O7":              // >
-                //case "O9":              // <>
-                //case "O11":             // <=
-                //case "O10":             // >=
-                //case "O1":              // +  ОП5
-                //case "O2":              // -
-                //case "O3":              // *  ОП6
-                //case "O4":              // / 
-                //case "O5": return 4;    // ^  ОП7
-                                                  //case "W4":     // Dim
             }
             return 4; // это константа  
         }
