@@ -108,15 +108,26 @@ namespace laba_1
                         {
                             word += chars.Dequeue();
                         }
+                        if (word == "End" || word == "End ")
+                        {
+                           
+                            for (int i = 0; i < word.Length; i++)
+                            {
+                                chars.Enqueue(word[i]);
+                            }
 
+                            goto Key1;
+                        }
                         // выполнение процедуры с передачей слова и таблицы слов
                         Procedures(procedure, word, words);
                         if (new_line)
                         {
                             textBox2.Text += Environment.NewLine;
+                            textBox2.Text += Environment.NewLine;
                             new_line = false;
                         }
                     }
+                    Key1:
                     chars.Enqueue(lines[row][column]); // добавить символ в очередь
 
                     // переход в следующее состояние
