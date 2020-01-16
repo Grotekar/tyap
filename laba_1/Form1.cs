@@ -455,6 +455,7 @@ namespace laba_1
             Stack<string> stack = new Stack<string>();
 
             int MIf = 1; // счетчик If
+            int Sub = 0; // счетчик процедур
             int IFun = 1; // счетчик аргументов функции
             textBox3.Text = ""; // очистить результат
             // считать результат лексического анализа
@@ -687,26 +688,30 @@ namespace laba_1
                         case "Sub 1,1":
                             {
                                 stack.Pop();
-                                textBox3.Text += "1,1 НП ";
+                                Sub++;
+                                textBox3.Text += Sub + " НП ";
                                 break;
                             }
                         case "W17":
                             {
                                 stack.Pop();
-                                textBox3.Text += "1,1 КП";
+                                textBox3.Text += Sub + " КП";
+                                //Sub--;
                                 break;
                             }
                         case "W11":
                             {
                                 stack.Pop();
-                                textBox3.Text += "2,1 КП";
+                                //Sub++;
+                                textBox3.Text += Sub + " КП";
                                 break;
                             }
                         case "2Ф":
                         case "3Ф":
                         case "4Ф":
                             {
-                                textBox3.Text += stack.Pop() + " 2,1 НП";
+                                Sub++;
+                                textBox3.Text += stack.Pop() + Sub + " НП";
                                 break;
                             }
                         default:
