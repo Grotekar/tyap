@@ -1,14 +1,14 @@
-Вых(X)	Сост(1),Вых(X)	Вт	Err	Err	Вт(If)	Err	Err	Вт(i j 1 D)	Err	Вт	Вт	Вт	Вт	Вт	Вт	Вт(i j Function)	Вт	Вт	Вт(Sub 1 1)
+Вых(X)	Сост(1),Вых(X)	Вт	N	Err	Вт(If)	Err	Err	Вт(i j 1 D)	Err	Вт	Вт	Вт	Вт	Вт	Вт	Вт(i j Function)	Вт	Вт	Вт(Sub 1 1)
 Вых(X)	Сост(1),Вых(X)	Вт	Выт	Err	Err	Err	Err	Err	Err	Вт	Вт	Вт	Вт	Вт	Вт	Err	Err	Err	Err
 Вых(X)	Сост(1),Вых(X)	Вт	Err	Err	Err	Вых(M УПЛ),Зам(M If)	Err	Err	Err	Вт	Вт	Вт	Вт	Вт	Вт	Err	Err	Err	Err
 Вых(X)	Сост(1),Вых(X)	Вт	Err	Err	Вт(If)	Err	Вых(M+1 БП M:),Зам(M+1 If)	Err	Err	Вт	Вт	Вт	Вт	Вт	Вт	Err	Err	Err	Err
 Вых(X)	Сост(1),Вых(X)	Вт	Err	Err	Вт(If)	Err	Вых(M+1:),Выт,Држ	Err	Err	Вт	Вт	Вт	Вт	Вт	Вт	Err	Err	Err	Err
 Err	Err	Err	Вых	Вых	Err	Err	Err	Err	Err	Err	Err	Err	Err	Err		Err	Err	Err	Err
-Вых(X)	Сост(1),Вых(X)	Вт	Вых,Выт,Држ	Вых,Выт,Држ	Err	Вых,Држ	Err	Err	Err	Вт	Вых,Држ	Вт	Вт	Вт	Вт	Err	Err	Err	Err
-Вых(X)	Сост(1),Вых(X)	Вт	Вых,Выт,Држ	Вых,Выт,Држ	Err	Вых,Држ	Вых,Вых(M+1 БП M:),Зам(M+1 If)	Err	Err	Вых,Држ	Вых,Држ	Вых,Држ	Вт	Вт	Вт	Err	Err	Err	Err
-Вых(X)	Сост(1),Вых(X)	Вт	Вых,Выт,Држ	Вых,Выт,Држ	Err	Вых,Држ	Err	Err	Err	Вых,Држ	Вых,Држ	Вых,Држ	Вых,Држ	Вт	Вт	Err	Err	Err	Err
-Вых(X)	Сост(1),Вых(X)	Вт	Вых,Выт,Држ	Вых,Выт,Држ	Err	Вых,Држ	Err	Err	Err	Вых,Држ	Вых,Држ	Вых,Држ	Вых,Држ	Вых,Држ	Вт	Err	Err	Err	Err
-Вых(X)	Сост(1),Вых(X)	Вт	Вых,Выт,Држ	Вых,Выт,Држ	Err	Вых,Држ	Err	Err	Err	Вых,Држ	Вых,Држ	Вых,Држ	Вых,Држ	Вых,Држ	Вых,Држ	Err	Err	Err	Err
+Вых(X)	Сост(1),Вых(X)	Вт	Вых	Вых,Выт,Држ	Err	Вых,Држ	Err	Err	Err	Вт	Вых,Држ	Вт	Вт	Вт	Вт	Err	Err	Err	Err
+Вых(X)	Сост(1),Вых(X)	Вт	Вых	Вых,Выт,Држ	Err	Вых,Држ	Вых,Вых(M+1 БП M:),Зам(M+1 If)	Err	Err	Вых,Држ	Вых,Држ	Вых,Држ	Вт	Вт	Вт	Err	Err	Err	Err
+Вых(X)	Сост(1),Вых(X)	Вт	Вых	Вых,Выт,Држ	Err	Вых,Држ	Err	Err	Err	Вых,Држ	Вых,Држ	Вых,Држ	Вых,Држ	Вт	Вт	Err	Err	Err	Err
+Вых(X)	Сост(1),Вых(X)	Вт	Вых	Вых,Выт,Држ	Err	Вых,Држ	Err	Err	Err	Вых,Држ	Вых,Држ	Вых,Држ	Вых,Држ	Вых,Држ	Вт	Err	Err	Err	Err
+Вых(X)	Сост(1),Вых(X)	Вт	Вых	Вых,Выт,Држ	Err	Вых,Држ	Err	Err	Err	Вых,Држ	Вых,Држ	Вых,Држ	Вых,Држ	Вых,Држ	Вых,Држ	Err	Err	Err	Err
 Вых(X)	Сост(1),Вых(X)	Вт	Вых	Зам(i+1 A)	Err	Err	Err	Err	Err	Err	Вт	Вт	Вт	Вт	Вт	Err	Err	Err	Err
 Err	Сост(1),Вых(X)	Err	Err	Err	Err	Err	Err	Err	Вт	Err	Err	Err	Err	Err	Err	Err	Err	Err	Err
 Вых(X)	Сост(1),Вых(X)	Вт	Вых,Выт	Зам(i+1 Ф)	Err	Err	Err	Err	Вт	Вт	Вт	Вт	Вт	Вт	Вт	Err	Err	Err	Err

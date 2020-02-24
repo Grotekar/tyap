@@ -842,7 +842,8 @@ namespace laba_1
                     case "Выт":
                         // поместить элемент в выходную строку
                         {
-                            stack.Pop();
+                            if (stack.Count != 0)  
+                                stack.Pop();
                             break;
                         }
                     case "Вых(M УПЛ)":
@@ -874,6 +875,11 @@ namespace laba_1
                             {
                                 if (GetPriority(stack.Peek()) > GetPriority(word))
                                     textBox3.Text += stack.Pop() + " ";
+                                else if (stack.Peek() == "O12")
+                                {
+                                    stack.Pop();
+                                    break;
+                                }
                                 else
                                     break;
                             }

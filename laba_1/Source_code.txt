@@ -1,4 +1,6 @@
+a=15*32+(a-6)/7-5
 Sub Main()
+
 
         Dim s As String
         s = "Привет"
